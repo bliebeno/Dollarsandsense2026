@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dollars and Sense - Monthly Champions League</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .trophy-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            gap: 40px;
+        }
+
+        .trophy {
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .trophy:hover {
+            transform: scale(1.1);
+        }
+
+        .trophy-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .gold { color: #FFD700; }
+        .silver { color: #C0C0C0; }
+        .bronze { color: #CD7F32; }
+
+        .trophy-label {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .scoreboard {
+            padding: 0 30px 30px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 15px 8px;
+            border-right: 3px solid rgba(255,255,255,0.3);
+        }
+
+        .category-header:last-child {
+            border-right: none;
+        }
+
+        .sub-header {
+            background: linear-gradient(135deg, #48dbfb, #0abde3);
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 8px 5px;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:hover {
+            background: linear-gradient(135deg, #f8f9ff, #e3f2fd);
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .location-cell {
+            padding: 12px 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            border-right: 1px solid #eee;
+        }
+
+        .metric-cell {
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+            border-right: 1px solid #eee;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #FFD700, #FFA500); }
+        .rank-2 { background: linear-gradient(135deg, #C0C0C0, #A9A9A9); }
+        .rank-3 { background: linear-gradient(135deg, #CD7F32, #B8860B); }
+        .rank-4, .rank-5, .rank-6 { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+        .rank-7, .rank-8, .rank-9 { background: linear-gradient(135deg, #feca57, #ff9ff3); }
+        .rank-10, .rank-11, .rank-12 { background: linear-gradient(135deg, #48dbfb, #0abde3); }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .footer-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #3498db;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .motivational-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 15px;
+            color: #ecf0f1;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            margin: 20px 30px;
+            padding: 20px;
+        }
+
+        .instructions h3 {
+            color: #28a745;
+            margin-bottom: 10px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .trophy-container { gap: 20px; }
+            .trophy { transform: scale(0.7); }
+            .footer-stats { flex-direction: column; gap: 15px; }
+            .category-header { font-size: 0.9rem; }
+            .location-cell, .metric-cell { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+   
+        <div class="header">
+            <h1>💰 DOLLARS & SENSE 💰</h1>
+            <p class="subtitle" id="subtitle">🏆 Monthly Champions League 🏆</p>
+        </div>
+
+        <div class="trophy-container">
+            <div class="trophy">
+                <div class="trophy-icon gold">🥇</div>
+                <div class="trophy-label">CHAMPION</div>
+            </div>
+            <div class="trophy">
+                <div class="trophy-icon silver">🥈</div>
+                <div class="trophy-label">RUNNER-UP</div>
+            </div>
+            <div class="trophy">
+                <div class="trophy-icon bronze">🥉</div>
+                <div class="trophy-label">BRONZE STAR</div>
+            </div>
+        </div>
+
+        <div class="scoreboard">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr class="table-header">
+                            <th colspan="2" class="category-header">📊 OCCUPANCY %</th>
+                            <th colspan="2" class="category-header">⏰ OT %</th>
+                            <th colspan="2" class="category-header">💳 AR %</th>
+                            <th colspan="2" class="category-header">📈 NOI %</th>
+                        </tr>
+                        <tr>
+                            <th class="sub-header">🏢 Location</th>
+                            <th class="sub-header">📈 %</th>
+                            <th class="sub-header">🏢 Location</th>
+                            <th class="sub-header">📈 %</th>
+                            <th class="sub-header">🏢 Location</th>
+                            <th class="sub-header">📈 %</th>
+                            <th class="sub-header">🏢 Location</th>
+                            <th class="sub-header">📈 %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scorecard-body">
+                        <!-- Table rows will be generated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+                <div class="motivational-text">
+                🎯 "Excellence is never an accident - it's the result of high intention and skilled execution!" 🎯<br>
+                <small>📊 Each metric tells a story - which story will your location write this month?</small>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        // ===============================================
+        // 🔧 EDIT THIS SECTION TO UPDATE YOUR SCORECARD
+        // ===============================================
+
+        // Update this with the current month/year
+        const currentMonth = "January 2026";
+
+        // Update these numbers for each location each month
+        // The script will automatically calculate rankings
+        const locationData = {
+            "The Esther": {
+                occupancy: 91.7,     // Higher is better
+                overtime: 3.8,       // Lower is better  
+                ar: 3.4,            // Lower is better
+                expToRev: 28.9      // Higher is better
+            },
+            "Rawlin": {
+                occupancy: 82.1,
+                overtime: 4.4,
+                ar: 2.2,
+                expToRev: 24.4
+            },
+            "Battle Creek": {
+                occupancy: 91.4,
+                overtime: 1.9,
+                ar: 7.6,
+                expToRev: 35.2
+            },
+            "Shadow Mtn": {
+                occupancy: 90.0,
+                overtime: 3.7,
+                ar: 0.0,
+                expToRev: 34.2
+            },
+            "Waterhouse": {
+                occupancy: 68.7,
+                overtime: 8.2,
+                ar: 2.2,
+                expToRev: 9.1
+            },
+            "Middlefield": {
+                occupancy: 81.1,
+                overtime: 2.0,
+                ar: 3.3,
+                expToRev: 18.2
+            },
+            "Laurel": {
+                occupancy: 74.0,
+                overtime: 2.4,
+                ar: 2.8,
+                expToRev: 9.0
+            },
+            "Henderson": {
+                occupancy: 98.4,
+                overtime: 6.1,
+                ar: 0.0,
+                expToRev: 33.3
+            },
+            "Woodlake": {
+                occupancy: 91.5,
+                overtime: 8.3,
+                ar: 2.3,
+                expToRev: 21.5
+            },
+            "Reserve": {
+                occupancy: 37.0,
+                overtime: 1.2,
+                ar: 12.1,
+                expToRev: -81.2
+            },
+            "Belmare": {
+                occupancy: 82.8,
+                overtime: 3.8,
+                ar: 0.1,
+                expToRev: 14.9
+            },
+            "Sonnet Hill": {
+                occupancy: 60.3,
+                overtime: 4.1,
+                ar: 0.0,
+                expToRev: -17.4
+            }
+        };
+
+        // ===============================================
+        // 🚫 DON'T EDIT BELOW THIS LINE 
+        // ===============================================
+
+        function formatValue(value, signed = false) {
+            return `${signed && value > 0 ? '+' : ''}${value}%`;
+        }
+
+        function getRankEmoji(rank) {
+            if (rank === 1) return "🥇";
+            if (rank === 2) return "🥈";
+            if (rank === 3) return "🥉";
+            return rank === 10 ? "🔟" : 
+                   rank === 11 ? "1️⃣1️⃣" : 
+                   rank === 12 ? "1️⃣2️⃣" : 
+                   `${rank}️⃣`;
+        }
+
+        function rankMetric(data, metric, ascending = true) {
+            const sorted = Object.keys(data).sort((a, b) => {
+                const diff = ascending
+                    ? data[a][metric] - data[b][metric]
+                    : data[b][metric] - data[a][metric];
+
+                if (diff !== 0) return diff;
+                return a.localeCompare(b);
+            });
+
+            let lastValue = null;
+            let lastRank = null;
+
+            return sorted.map((location, index) => {
+                const value = data[location][metric];
+                let rank;
+
+                if (lastValue !== null && value === lastValue) {
+                    rank = lastRank;
+                } else {
+                    rank = index + 1; // competition ranking: 1,2,2,4
+                }
+
+                lastValue = value;
+                lastRank = rank;
+
+                return {
+                    location,
+                    value,
+                    rank
+                };
+            });
+        }
+
+        function generateScorecard() {
+            document.getElementById('subtitle').textContent = `🏆 Monthly Champions League - ${currentMonth} 🏆`;
+            const locationCountEl = document.getElementById('location-count');
+            if (locationCountEl) {
+                locationCountEl.textContent = Object.keys(locationData).length;
+            }
+
+            const occupancyRanked = rankMetric(locationData, 'occupancy', false); // Higher is better
+            const overtimeRanked = rankMetric(locationData, 'overtime', true);     // Lower is better
+            const arRanked = rankMetric(locationData, 'ar', true);                 // Lower is better
+            const expToRevRanked = rankMetric(locationData, 'expToRev', false);    // Higher is better
+
+            const metrics = [
+                { ranked: occupancyRanked, signed: false },
+                { ranked: overtimeRanked, signed: false },
+                { ranked: arRanked, signed: false },
+                { ranked: expToRevRanked, signed: true }
+            ];
+
+            const tbody = document.getElementById('scorecard-body');
+            tbody.innerHTML = '';
+
+            for (let i = 0; i < Object.keys(locationData).length; i++) {
+                const row = document.createElement('tr');
+
+                row.innerHTML = metrics.map(({ ranked, signed }) => {
+                    const item = ranked[i];
+                    return `
+                        <td class="location-cell">${getRankEmoji(item.rank)} ${item.location}</td>
+                        <td class="metric-cell rank-${item.rank}">${formatValue(item.value, signed)}</td>
+                    `;
+                }).join('');
+
+                tbody.appendChild(row);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', generateScorecard);
+    </script>
+
+</body>
+</html>
