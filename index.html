@@ -260,9 +260,9 @@
                 <table>
                     <thead>
                         <tr class="table-header">
-                            <th colspan="2" class="category-header">📊 Occupancy %</th>
+                            <th colspan="2" class="category-header">📊 OCCUPANCY %</th>
                             <th colspan="2" class="category-header">⏰ OT %</th>
-                            <th colspan="2" class="category-header">💳 Current AR %</th>
+                            <th colspan="2" class="category-header">💳 AR %</th>
                             <th colspan="2" class="category-header">📈 NOI %</th>
                         </tr>
                         <tr>
@@ -298,82 +298,82 @@
         // ===============================================
 
         // Update this with the current month/year
-        const currentMonth = "January 2026";
+        const currentMonth = "March 2026";
 
         // Update these numbers for each location each month
         // The script will automatically calculate rankings
         const locationData = {
             "The Esther": {
-                occupancy: 91.7,     // Higher is better
-                overtime: 3.8,       // Lower is better  
-                ar: 3.4,            // Lower is better
-                expToRev: 28.9      // Higher is better
+                occupancy: 90.4,     // Higher is better
+                overtime: 2.6,       // Lower is better  
+                ar: 2.5,            // Lower is better
+                expToRev: 22.2      // Higher is better
             },
             "Rawlin": {
-                occupancy: 82.1,
-                overtime: 4.4,
-                ar: 2.2,
-                expToRev: 24.4
+                occupancy: 92.1,
+                overtime: 3.6,
+                ar: 3.7,
+                expToRev: 9.4
             },
             "Battle Creek": {
-                occupancy: 91.4,
-                overtime: 1.9,
-                ar: 7.6,
-                expToRev: 35.2
+                occupancy: 84.1,
+                overtime: 1.4,
+                ar: 4.8,
+                expToRev: 27.9
             },
             "Shadow Mtn": {
-                occupancy: 90.0,
-                overtime: 3.7,
-                ar: 0.0,
-                expToRev: 34.2
-            },
-            "Waterhouse": {
-                occupancy: 68.7,
-                overtime: 8.2,
-                ar: 2.2,
-                expToRev: 9.1
-            },
-            "Middlefield": {
-                occupancy: 81.1,
-                overtime: 2.0,
-                ar: 3.3,
-                expToRev: 18.2
-            },
-            "Laurel": {
-                occupancy: 74.0,
-                overtime: 2.4,
-                ar: 2.8,
-                expToRev: 9.0
-            },
-            "Henderson": {
-                occupancy: 98.4,
+                occupancy: 92.2,
                 overtime: 6.1,
                 ar: 0.0,
-                expToRev: 33.3
+                expToRev: 35.8
+            },
+            "Waterhouse": {
+                occupancy: 70.9,
+                overtime: 5.7,
+                ar: 10.8,
+                expToRev: -3.2
+            },
+            "Middlefield": {
+                occupancy: 82.3,
+                overtime: 1.5,
+                ar: 6.1,
+                expToRev: 18.3
+            },
+            "Laurel": {
+                occupancy: 68.7,
+                overtime: 4.7,
+                ar: 2.0,
+                expToRev: 17.2
+            },
+            "Henderson": {
+                occupancy: 98.9,
+                overtime: 5.62,
+                ar: 1.8,
+                expToRev: 27.0
             },
             "Woodlake": {
                 occupancy: 91.5,
-                overtime: 8.3,
-                ar: 2.3,
-                expToRev: 21.5
+                overtime: 6.0,
+                ar: 5.2,
+                expToRev: -3.2
             },
             "Reserve": {
-                occupancy: 37.0,
-                overtime: 1.2,
-                ar: 12.1,
-                expToRev: -81.2
+                occupancy: 39.1,
+                overtime: 4.6,
+                ar: 16.4,
+                expToRev: -39.3
             },
             "Belmare": {
-                occupancy: 82.8,
-                overtime: 3.8,
-                ar: 0.1,
-                expToRev: 14.9
+                occupancy: 86.0,
+                overtime: 5.6,
+                ar: 0.2,
+                expToRev: 27.7
             },
             "Sonnet Hill": {
-                occupancy: 60.3,
-                overtime: 4.1,
-                ar: 0.0,
-                expToRev: -17.4
+                occupancy: 61.9,
+                overtime: 2.9,
+                ar: 0.5,
+                expToRev: -7.3
             }
         };
 
